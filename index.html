@@ -185,8 +185,8 @@
 
         const LANE_WIDTH = 2.5;
         const LANES = [-LANE_WIDTH, 0, LANE_WIDTH];
-        const ITEM_SPEED = 1.2; // 10x faster!
-        const SPAWN_INTERVAL = 1.2; // More frequent spawning
+        const ITEM_SPEED = 0.20; // Good pace
+        const SPAWN_INTERVAL = 2.0; // Reasonable spawning
 
         const ITEM_TYPES = {
             healthy: { color: 0x10b981, health: 15 },
@@ -678,7 +678,9 @@
         }
 
         function startGame() {
+            console.log('Starting game...');
             document.getElementById('startScreen').classList.add('hidden');
+            document.getElementById('gameOverScreen').classList.add('hidden');
             document.getElementById('hud').classList.remove('hidden');
             document.getElementById('instructions').classList.remove('hidden');
 
@@ -689,9 +691,13 @@
             gameTime = 0;
             currentLane = 1;
             lastSpawnTime = 0;
+
+            // Reset player position and mouth
+            player.position.x = 0;
             player.userData.mouthScale = 1;
             player.userData.mouth.scale.set(1.2, 0.5, 0.6);
 
+            // Clear all items
             items.forEach(item => scene.remove(item));
             items = [];
 
